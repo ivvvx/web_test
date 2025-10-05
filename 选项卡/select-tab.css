@@ -1,0 +1,53 @@
+#app {
+  width: 600px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.head {
+  background-color: #f1f1f1;
+  display: flex;
+  height: 45px;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+button {
+  padding: 10px;
+  border: none;
+  font-size: 18px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.active,
+button:hover {
+  background-color: #cccccc;
+}
+
+.content {
+  padding: 8px;
+  border-top: 1px solid #ccc;
+  min-height: 100px;
+  position: relative;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+  /* 定义过渡属性为 opacity，时长 0.5s */
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  /* 动画开始和结束时，透明度为 0 */
+}
+
+/* 让新内容在旧内容淡出时，从透明开始淡入 */
+.fade-enter {
+  position: absolute;
+  /* 绝对定位，让新旧内容在同一位置重叠 */
+}

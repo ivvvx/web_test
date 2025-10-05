@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/t-css.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head" >
+            <button v-for="tab in tabs" :key="tab.id" @click="is_active(tab.id)" :class="{'active':isactive === tab.id}">{{ tab.name }}</button>
+        </div>
+        <transition name="fade" mode="out-in">
+            <div class="content" v-if="currenttab" >
+            <h3>{{ currenttab.tit }}</h3>
+            <p>{{ currenttab.con }}</p>
+        </div>
+        </transition>
+    </div>
+
+    <script src="/vue.js"></script>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                tabs:[
+                    {id: 1,name:'London',tit: 'London', con:'London is the capital city of England.'},
+                    {id: 2,name:'Paris',tit: 'Paris', con:'Paris is the capital of France.'},
+                    {id: 3,name:'Tokyo',tit: 'Tokyo', con:'Tokyo is the capital of Japan.'}
+                ],
+            
+                isactive:1,
+            },
+            computed:{
+                currenttab(){
+                    return this.tabs.find(tab => tab.id === this.isactive);
+                }
+            },
+            methods: {
+                is_active(x){
+                    this.isactive = x
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
