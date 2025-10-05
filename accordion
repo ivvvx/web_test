@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="/t-css.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="part" v-for="item in text" :key="item.id">
+            <button class="lan" @click="change(item.id)" :class="{'active':isactive === item.id}">section{{ item.id
+                }}</button>
+            <div class="panel" @click="change(item.id)" :style="{maxHeight : isshow === item.id ? '1000px':'0'}">
+                <p>
+                    {{ item.container }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/vue.js"></script>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                text: [
+                    { id: 1, container: '网络安全的一个通用定义指网络信息系统的硬件、软件及其系统中的数据受到保护，不因偶然的或者恶意的破坏、更改、泄露，系统能连续、可靠、正常地运行，服务不中断。网络安全简单的说是在网络环境下能够识别和消除不安全因素的能力。' },
+                    { id: 2, container: '网络安全在不同环境和应用中有不同的解释，例如系统运行的安全、系统信息内容的安全、信息通信与传播的安全等。' },
+                    { id: 3, container: '完整性是指信息在传输、交换、存储和处理过程中，保持信息不被破坏或修改、不丢失和信息未经授权不能改变的特性，也是最基本的安全特征。' }
+                ],
+                isactive: null,
+                isshow: null
+            },
+            methods: {
+                change(x) {
+                    if(this.isshow === x){
+                        this.isactive = null,
+                        this.isshow = null
+                    }else{
+                        this.isactive = x
+                        this.isshow = x
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
