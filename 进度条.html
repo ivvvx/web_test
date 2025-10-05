@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .progress {
+            /* border: 2px solid black; */
+            width: 300px;
+            height: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            background-color: black;
+            /* box-shadow: 0 2px 4px rgba(0,0,0,0.1) inset; */
+            /* overflow: hidden; */
+            position: relative;
+        }
+
+        .inner {
+            background-color: #379bff;
+            /* width: 20%; */
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            /* position: relative; */
+        }
+
+        .text{
+            position: absolute;
+            left: calc(var(--percent) - 15px); 
+            top: 30px;
+            color: black;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+            z-index: 10;
+            padding: 0 5px;
+            transition: width 1s ease;
+            /* transform: translateX(-100%) */
+        }
+
+        button{
+            padding: 3px 6px;
+            border-radius: 8px;
+            border: none;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover{
+            background-color: #968787;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <div id="app">
+        <div class="progress" :style="{'--percent': percent + '%'}">
+            <div class="inner" :style="{width: percent + '%'} "></div>
+            <span class="text">{{ percent }}%</span>
+        </div>
+        <button @click="percent = 25">设置25%</button>
+        <button @click="percent = 50">设置50%</button>
+        <button @click="percent = 75">设置75%</button>
+        <button @click="percent = 100">设置100%</button>
+    </div>
+
+
+    <script src='./vue.js'></script>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                percent: 50
+            }
+
+        })
+    </script>
+</body>
+
+</html>

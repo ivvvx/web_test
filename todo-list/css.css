@@ -1,0 +1,147 @@
+#app {
+    border: 0px solid black;
+    margin: auto 450px;
+    margin-top: 200px;
+    width: 450px;
+    background-color: aliceblue;
+    padding: 20px;
+    box-shadow: 
+    0 5px 2px rgba(0, 0, 0, 0.2), /* 第一层浅阴影，偏移小 */
+    0 15px 8px rgba(0, 0, 0, 0.2), /* 第二层稍深阴影，偏移稍大 */
+    0 20px 16px rgba(0, 0, 0, 0.2); /* 第三层更深阴影，偏移更大 */
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #c45c56;
+    font-family: '宋体';
+}
+
+.main {
+    background-color: #fff;
+    padding: 10px;
+}
+
+.header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.new-todo {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #c45c56;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    outline: none;
+    font-style: italic;
+}
+
+.add {
+    font-size: 15px;
+    color: #fff;
+    background-color: #c45c56;
+    border: 2px solid #c45c56;
+    border-radius: 0 5px 5px 0;
+    flex-basis: 25%;
+    cursor: pointer;
+}
+
+.content {
+    margin-bottom: 20px;
+}
+ul {
+    padding-left: 0;
+}
+
+.todo {
+    list-style: none;
+}
+
+.view {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.index {
+    margin-right: 10px;
+}
+
+/* .destroy {
+    margin-left: 210px;
+    margin-left: auto;
+    color: #c45c56;
+    cursor: pointer;
+} */
+
+/* 基础按钮样式重置 */
+.destroy {
+    /* 清除默认按钮样式 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* 鼠标悬停显示手型 */
+    font-size: 20px;
+    color: #cc9a9a;
+    /* 默认颜色 */
+    opacity: 0;
+    /* 初始隐藏，鼠标悬停任务项时显示 */
+    transition: color 0.2s ease-out, opacity 0.2s ease-out;
+    padding: 0 8px;
+    line-height: 1;
+    /* 确保垂直居中 */
+}
+
+/* 鼠标悬停在任务项上时显示按钮 */
+.todo:hover .destroy {
+    opacity: 1;
+}
+
+/* 按钮悬停时变色 */
+.destroy:hover {
+    color: #af5b5e;
+}
+/* 使用伪元素创建×符号 */
+.destroy::before {
+  content: '×'; /* ×符号的 Unicode 字符 */
+}
+
+/* 让按钮可以绝对定位 */
+.view {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
+.destroy {
+  position: absolute;
+  right: 10px; /* 靠右对齐 */
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 12px;
+    color: #777;
+    padding: 5px 15px;
+}
+.todo-count {
+    margin-top: -10px;
+}
+.clear-completed {
+    background:#fff;
+    color: #777;
+    border: none;
+    margin-top: -10px;
+    cursor: pointer;
+    /* 悬停效果 */
+    transition: color 0.2s;
+}
+.clear-completed:hover {
+  color: #333; /* 悬停时加深颜色 */
+  text-decoration: underline; /* 可选：下划线提示可点击 */
+}

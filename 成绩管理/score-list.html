@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩管理系统</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/t-css.css">
+</head>
+<body>
+    <div id="app">
+        <h1><i class="fa fa-graduation-cap"></i> 成绩管理系统</h1>
+        
+        <div class="score-list">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>科目</th>
+                            <th>成绩</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="item in list" :key="item.id">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.subject }}</td>
+                            <td :class="{ 'low-score': item.score < 60 }">{{ item.score }}</td>
+                            <td class="operation">
+                                <a href="#" @click.prevent="deleteItem(item.id)">
+                                    <i class="fa fa-trash-o"></i> 删除
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <tr v-if="list.length === 0" class="none">
+                            <td colspan="4">
+                                <span>暂无数据</span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <span>总分: {{ totalScore }}</span>
+                                <span style="margin-left: 50px;">平均分: {{ averageScore.toFixed(1) }}</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            <div class="form">
+                <div class="form-item">
+                    <div class="label">科目：</div>
+                    <div class="input">
+                        <input type="text" v-model="newSubject" placeholder="请输入科目">
+                    </div>
+                </div>
+                <div class="form-item">
+                    <div class="label">分数：</div>
+                    <div class="input">
+                        <input type="number" v-model="newScore" min="0" max="100" placeholder="请输入分数">
+                    </div>
+                </div>
+                <div class="form-item">
+                    <button @click="addItem">
+                        <i class="fa fa-plus"></i> 添加
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./vue.js"></script>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    { id: 1, subject: '语文', score: 72 },
+                    { id: 2, subject: '数学', score: 58 },
+                    { id: 3, subject: '英语', score: 90 },
+                ],
+                newSubject: '',
+                newScore: ''
+            },
+            computed: {
+                totalScore() {
+                    return this.list.reduce((sum, item) => sum + Number(item.score), 0);
+                },
+                averageScore() {
+                    return this.list.length > 0 ? this.totalScore / this.list.length : 0;
+                }
+            },
+            methods: {
+                deleteItem(id) {
+                    if (confirm('确定要删除这条记录吗？')) {
+                        this.list = this.list.filter(item => item.id !== id);
+                    }
+                },
+                addItem() {
+                    if (!this.newSubject.trim()) {
+                        alert('请输入科目名称');
+                        return;
+                    }
+                    
+                    const score = Number(this.newScore);
+                    if (isNaN(score) || score < 0 || score > 100) {
+                        alert('请输入有效的分数（0-100）');
+                        return;
+                    }
+                    
+                    // 生成新ID
+                    const newId = this.list.length > 0 
+                        ? Math.max(...this.list.map(item => item.id)) + 1 
+                        : 1;
+                    
+                    this.list.push({
+                        id: newId,
+                        subject: this.newSubject,
+                        score: score
+                    });
+                    
+                    // 清空输入框
+                    this.newSubject = '';
+                    this.newScore = '';
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+    
