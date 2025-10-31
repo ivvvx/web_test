@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tab-content.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container" >
+            <div class="content"  v-if="isshow" :class="isshow.color">
+                <h3>{{ isshow.tit }}</h3>
+                <p>{{ isshow.con }}</p>
+            </div>
+
+            <div class="foot"  :class="isshow ? isshow.color:' ' ">
+                <button v-for="tab in tabs" :key="tab.id" @click="isactive(tab.id)" :class="{'active':tab.id === isselect}">
+                    {{ tab.tit }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/vue.js"></script>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data:{
+                tabs:[
+                    {id: 1,tit:'London', con:'London is the capital city of England.',color:'red'},
+                    {id: 2,tit:'Paris', con:'Paris is the capital of France.',color:'green'},
+                    {id: 3,tit:'Tokyo', con:'Tokyo is the capital of Japan.',color:'blue'},
+                    {id: 4,tit:'Oslo', con :'Oslo is the capital of Norway.',color:'orange'}
+                ],
+                isselect:1
+            },
+            computed:{
+                isshow(){
+                    return this.tabs.find(tab => tab.id === this.isselect);
+                }
+            },
+            methods:{
+                isactive(x){
+                    this.isselect = x
+                }
+            }
+        })
+    </script>
+</body>
+</html>

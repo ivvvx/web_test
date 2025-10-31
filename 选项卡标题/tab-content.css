@@ -1,0 +1,57 @@
+.container{
+    width: 800px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    /* display: flex;
+    flex-direction: column; */
+}
+.content{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    gap: 20px;
+}
+h3{
+    margin: 0;
+}
+.content p{
+    margin: 0;
+    font-size: 20px;
+}
+.foot{
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    background-color: #ccc;
+}
+button{
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    transition: 0.4s;
+}
+button:hover{
+    background-color: #ccc;
+}
+.active{
+    color: white;
+    font-weight: bold;
+    background-color: inherit;
+}
+.red{
+    background-color: red;
+}
+.green{
+    background-color: green;
+}
+.blue{
+    background-color: blue;
+}
+.orange{
+    background-color: orange;
+}
