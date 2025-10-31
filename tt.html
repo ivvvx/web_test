@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>密集弹窗效果</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+        /* 弹窗样式：带阴影和圆角，更精致 */
+        .popup {
+            position: fixed;
+            padding: 18px 22px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: "Arial", "微软雅黑", sans-serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 280px;
+        }
+        /* 表情图标样式 */
+        .popup .emoji {
+            font-size: 20px;
+        }
+        /* 淡入淡出+缩放动画，更紧凑的时间节奏 */
+        @keyframes popupAnim {
+            0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+            10% { opacity: 1; transform: scale(1) translateY(0); }
+            80% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0.8) translateY(10px); }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 更丰富的弹窗内容：带表情和多样化短句
+        const popupContents = [
+            { emoji: "✨", text: "今天也要闪闪发光呀" },
+            { emoji: "😊", text: "你的笑容超有感染力" },
+            { emoji: "💪", text: "再坚持一下，快成功啦" },
+            { emoji: "🌟", text: "你值得所有美好的事物" },
+            { emoji: "☕", text: "记得喝口水，休息一下~" },
+            { emoji: "🌈", text: "风雨过后总会有彩虹" },
+            { emoji: "💖", text: "被你治愈的一天" },
+            { emoji: "🚀", text: "朝着目标冲呀！" },
+            { emoji: "🌸", text: "今天的你也很可爱" },
+            { emoji: "☀️", text: "像太阳一样温暖的人" },
+            { emoji: "🎈", text: "小小的进步也值得庆祝" },
+            { emoji: "💡", text: "你的想法真的很棒" },
+            { emoji: "🍀", text: "好运正在向你奔来" },
+            { emoji: "👋", text: "路过也要给你打气！" },
+            { emoji: "🎊", text: "每一天都值得期待" }
+        ];
+
+        // 更多柔和的背景色
+        const bgColors = [
+            "#fff0f3", "#f0f7ff", "#f0fff4", "#fffbf0", "#f7f0ff",
+            "#f0f9ff", "#fff5f0", "#f0fff0", "#fcf0ff", "#f0f0ff"
+        ];
+
+        // 文字颜色（与背景色搭配）
+        const textColors = [
+            "#e63946", "#1d3557", "#2a9d8f", "#e9c46a", "#9d4edd",
+            "#023e8a", "#e76f51", "#264653", "#8a4fff", "#5d3891"
+        ];
+
+        // 创建单个弹窗
+        function createPopup() {
+            // 随机选择内容和样式
+            const content = popupContents[Math.floor(Math.random() * popupContents.length)];
+            const bgColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+            const textColor = textColors[Math.floor(Math.random() * textColors.length)];
+            
+            // 创建弹窗元素
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            // 组装内容（表情+文字）
+            popup.innerHTML = `<span class="emoji">${content.emoji}</span><span>${content.text}</span>`;
+            // 设置样式
+            popup.style.backgroundColor = bgColor;
+            popup.style.color = textColor;
+            // 随机位置（避免超出屏幕）
+            popup.style.left = `${Math.random() * (window.innerWidth - 250)}px`;
+            popup.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+            // 随机宽度（适配内容）
+            popup.style.width = `${200 + Math.random() * 80}px`;
+            // 应用动画（总时长3秒，比之前更短，节奏更快）
+            popup.style.animation = `popupAnim 2s forwards`;
+            
+            // 添加到页面
+            document.body.appendChild(popup);
+            
+            // 动画结束后移除元素
+            setTimeout(() => {
+                popup.remove();
+            }, 2000);
+        }
+
+        // 控制弹窗只出现三次
+        let popupCount = 0;
+        const MAX_POPUPS = 200;
+        
+        function startPopups() {
+            if (popupCount < MAX_POPUPS) {
+                createPopup();
+                popupCount++;
+                // 随机间隔时间（500-1500毫秒），实现"一个接一个"的紧凑效果
+                const nextDelay = 40 + Math.random() * 80;
+                setTimeout(startPopups, nextDelay);
+            } else {
+                // 三次弹窗后，等待一小段时间再显示冬天弹窗
+                setTimeout(showWinterPopup, 500);
+            }
+        }
+        
+        // 显示冬天弹窗，绑定点击事件链接到t2.html
+        function showWinterPopup() {
+            const winterPopup = document.createElement('div');
+            winterPopup.className = 'popup';
+            winterPopup.innerHTML = `<span class="emoji">❄️</span><span>冬天</span>`;
+            winterPopup.style.backgroundColor = '#e0f7fa';
+            winterPopup.style.color = '#01579b';
+            winterPopup.style.left = `${(window.innerWidth - 200) / 2}px`;
+            winterPopup.style.top = `${(window.innerHeight - 80) / 2}px`;
+            winterPopup.style.width = '200px';
+            winterPopup.style.cursor = 'pointer';
+            
+            // 添加点击事件，链接到t2.html
+            winterPopup.addEventListener('click', function() {
+                window.location.href = 't2.html';
+            });
+            
+            // 添加到页面
+            document.body.appendChild(winterPopup);
+            
+            // 应用动画（不自动消失）
+            winterPopup.style.animation = 'none';
+            winterPopup.style.opacity = '1';
+            winterPopup.style.transform = 'scale(1) translateY(0)';
+        }
+
+        // 启动弹窗
+        startPopups();
+    </script>
+</body>
+</html>
